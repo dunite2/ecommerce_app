@@ -1,0 +1,96 @@
+<div class="cart-page">
+  <div class="container mt-4">
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="page-title">Shopping Cart</h1>
+        <p class="page-subtitle">Review your matcha selections</p>
+      </div>
+    </div>
+
+    <!-- Cart Content -->
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Cart Items -->
+        <div class="cart-items">
+          <!-- Sample Cart Item -->
+          <div class="cart-item mb-3 p-3 border rounded">
+            <div class="row align-items-center">
+              <div class="col-md-2">
+                <div class="product-thumbnail">
+                  <div class="placeholder-image">📿</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h6>Ceremonial Grade Matcha</h6>
+                <p class="text-muted">Premium quality matcha powder</p>
+              </div>
+              <div class="col-md-2">
+                <div class="quantity-controls">
+                  <button class="btn btn-sm btn-outline-secondary">-</button>
+                  <span class="mx-2">1</span>
+                  <button class="btn btn-sm btn-outline-secondary">+</button>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <strong>$45.00</strong>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm btn-outline-danger">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty Cart Message -->
+          <div class="empty-cart text-center py-5" style="display: none;">
+            <div class="matcha-character mb-3">🍵</div>
+            <h4>Your cart is empty</h4>
+            <p>Add some delicious matcha products to get started!</p>
+            <%= link_to "Shop Products", products_path, class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="col-lg-4">
+        <div class="cart-summary p-4 border rounded bg-light">
+          <h5>Order Summary</h5>
+          <hr>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal:</span>
+            <span>$45.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Shipping:</span>
+            <span>$5.99</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Tax:</span>
+            <span>$4.08</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between mb-3">
+            <strong>Total:</strong>
+            <strong>$55.07</strong>
+          </div>
+          <button class="btn btn-success w-100 mb-2">Proceed to Checkout</button>
+          <%= link_to "Continue Shopping", products_path, class: "btn btn-outline-success w-100" %>
+        </div>
+
+        <!-- Shipping Info -->
+        <div class="shipping-info mt-4 p-3 border rounded">
+          <h6><i class="fas fa-shipping-fast me-2"></i>Shipping Information</h6>
+          <p class="small mb-0">Free shipping on orders over $75</p>
+          <p class="small mb-0">Orders ship within 1-2 business days</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Shopping -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <%= link_to "← Continue Shopping", products_path, class: "btn btn-outline-success" %>
+      </div>
+    </div>
+  </div>
+</div>

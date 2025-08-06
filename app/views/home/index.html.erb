@@ -1,0 +1,100 @@
+<div class="homepage-hero">
+  <!-- Navigation Header -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid px-4">
+      <!-- Left: Logo and Brand -->
+      <div class="navbar-brand d-flex align-items-center">
+        <div class="logo-script me-3">leo</div>
+        <span class="brand-subtitle coustard-regular">Matcha Fusion</span>
+      </div>
+      
+      <!-- Center: Navigation Links -->
+      <div class="navbar-nav mx-auto d-none d-lg-flex">
+        <%= link_to "Home", root_path, class: "nav-link active coustard-regular" %>
+        <%= link_to "Products", products_path, class: "nav-link coustard-regular" %>
+        <%= link_to "FAQ", faq_path, class: "nav-link coustard-regular" %>
+      </div>
+      
+      <!-- Right: Search, User, Cart -->
+      <div class="navbar-nav d-flex flex-row">
+        <%= link_to search_path, class: "nav-link", title: "Search" do %>
+          <i class="fas fa-search"></i>
+        <% end %>
+        <% if user_signed_in? %>
+          <%= link_to "Profile", edit_user_registration_path, class: "nav-link" do %>
+            <i class="fas fa-user"></i>
+          <% end %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" do %>
+            <i class="fas fa-sign-out-alt"></i>
+          <% end %>
+        <% else %>
+          <%= link_to new_user_session_path, class: "nav-link", title: "Login" do %>
+            <i class="fas fa-user"></i>
+          <% end %>
+        <% end %>
+        <%= link_to cart_path, class: "nav-link", title: "Shopping Cart" do %>
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count badge bg-success ms-1">0</span>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero-content">
+    <div class="container-fluid">
+      <div class="row align-items-center min-vh-75">
+        <!-- Left Content -->
+        <div class="col-lg-6 pe-lg-5">
+          <h1 class="hero-title">
+            Start your<br>
+            matcha journey<br>
+            with us
+          </h1>
+          <p class="hero-description">
+            Discover the right product for you — whether you're shopping for everyday 
+            wellness or high-quality ceremonial matcha.
+          </p>
+          <div class="hero-cta mt-4">
+            <%= link_to "Shop Now", products_path, class: "btn btn-success btn-lg" %>
+          </div>
+        </div>
+        
+        <!-- Right Content -->
+        <div class="col-lg-6 text-center">
+          <div class="brand-section">
+            <h2 class="brand-title">Matcha</h2>
+            <div class="matcha-character">
+              <!-- Matcha bowl character illustration -->
+              <div class="matcha-bowl">
+                <div class="bowl-body"></div>
+                <div class="matcha-powder"></div>
+                <div class="whisk"></div>
+                <div class="character-arms">
+                  <div class="arm left-arm"></div>
+                  <div class="arm right-arm"></div>
+                </div>
+                <div class="character-legs">
+                  <div class="leg left-leg"></div>
+                  <div class="leg right-leg"></div>
+                </div>
+                <div class="character-face">
+                  <div class="eyes">
+                    <div class="eye left-eye"></div>
+                    <div class="eye right-eye"></div>
+                  </div>
+                  <div class="mouth"></div>
+                </div>
+              </div>
+            </div>
+            <div class="brand-footer">
+              <span class="est-text">EST.</span>
+              <h3 class="whiskers-title">Whiskers</h3>
+              <span class="year">2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
