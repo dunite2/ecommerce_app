@@ -46,6 +46,7 @@ gem 'stripe'                    # Payment processing
 gem 'friendly_id'               # SEO-friendly URLs
 gem 'kaminari'                  # Pagination
 gem 'ransack'                   # Search functionality
+gem 'cancancan'                 # Authorization
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
