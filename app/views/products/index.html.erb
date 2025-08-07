@@ -1,14 +1,12 @@
 <div class="products-page">
   <div class="container mt-4">
-    <!-- Header -->
-    <div class="row mb-4">
+        <div class="row mb-4">
       <div class="col-12">
-        <h1 class="page-title">Our Matcha Products</h1>
-        <p class="page-subtitle">Discover our premium selection of matcha products</p>
+        <h1 class="page-title">Currently Available</h1>
+        <p class="page-subtitle">Check out our available products</p>
       </div>
     </div>
 
-    <!-- Search and Filter Bar -->
     <div class="row mb-4">
       <div class="col-md-6">
         <%= form_with url: search_path, method: :get, class: "d-flex" do |form| %>
@@ -31,14 +29,14 @@
       </div>
     </div>
 
-    <!-- Products Grid -->
+    
     <div class="row">
       <% if @products && @products.any? %>
         <% @products.each do |product| %>
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="product-card">
               <div class="product-image">
-                <%= image_tag "matcha-placeholder.jpg", alt: product.name, class: "img-fluid" %>
+                <%= image_tag "isuzu.jpg", alt: product.name, class: "img-fluid" %>
               </div>
               <div class="product-info p-3">
                 <h5 class="product-name"><%= product.name %></h5>
@@ -55,7 +53,6 @@
           </div>
         <% end %>
       <% else %>
-        <!-- Sample Products (when no products exist) -->
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="product-card">
             <div class="product-image">
@@ -81,8 +78,8 @@
               <div class="placeholder-image">🥄</div>
             </div>
             <div class="product-info p-3">
-              <h5 class="product-name">Matcha Whisk Set</h5>
-              <p class="product-description">Traditional bamboo whisk (chasen) for creating the perfect matcha froth.</p>
+              <h5 class="product-name">Marukyu Koyamaen Isuzu</h5>
+              <p class="product-description">Isuzu matcha has a refreshing aroma, astringent, mellow umami and slightly bitter flavor.</p>
               <div class="product-price">
                 <span class="price">$25.00</span>
               </div>

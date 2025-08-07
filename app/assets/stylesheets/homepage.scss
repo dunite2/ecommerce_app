@@ -1,9 +1,12 @@
 
-/* Global Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html, body {
@@ -31,6 +34,7 @@ html, body {
   width: 100vw;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 body {
@@ -149,7 +153,6 @@ body {
   font-weight: 400;
 }
 
-/* Brand Section */
 .brand-section {
   position: relative;
   padding: 2rem;
@@ -161,6 +164,26 @@ body {
   color: #2d5016;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Matcha Character Image */
+.matcha-character-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.matcha-mascot {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+}
+
+.matcha-mascot:hover {
+  transform: scale(1.05);
 }
 
 /* Brand Footer */
@@ -192,16 +215,37 @@ body {
   padding: 2rem 0;
 }
 
+/* Products Showcase Section */
+.products-showcase {
+  background: #f8f9fa;
+  padding: 5rem 0;
+  min-height: 100vh;
+}
+
+.section-title {
+  font-size: 3rem;
+  color: #2d5016;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
 .product-card {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
   overflow: hidden;
+  height: 100%;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
 .product-image {

@@ -38,8 +38,8 @@
             <% end %>
             <%= link_to cart_path, class: "nav-link", title: "Shopping Cart" do %>
               <i class="fas fa-shopping-bag"></i>
-            <span class="cart-count badge bg-success ms-1">0</span>
-          <% end %>
+              <span class="cart-count badge bg-success ms-1">0</span>
+            <% end %>
           </div>
         </div>
       </div>
@@ -57,8 +57,7 @@
             with us
           </h1>
           <p class="hero-description">
-            Discover the right product for you — whether you're shopping for everyday 
-            wellness or high-quality ceremonial matcha.
+            Discover the right product for you
           </p>
           <div class="hero-cta mt-4">
             <%= link_to "Shop Now", products_path, class: "btn btn-success btn-lg" %>
@@ -67,11 +66,8 @@
 
         <div class="col-lg-6 text-center">
           <div class="brand-section">
-            <h2 class="brand-title">Matcha</h2>
-            <div class="brand-footer">
-              <span class="est-text">EST.</span>
-              <h3 class="matcha-title">Matcha Fusion</h3>
-              <span class="year">2025</span>
+            <div class="matcha-character-image">
+              <%= image_tag "Untitled design-Photoroom.png", alt: "Matcha Whiskers Character", class: "img-fluid matcha-mascot" %>
             </div>
           </div>
         </div>
@@ -79,3 +75,122 @@
     </div>
   </div>
 </div>
+
+<!-- Products Section - Same as Products Page -->
+<section id="products-section" class="products-page">
+  <div class="container mt-4">
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="page-title">Currently Available</h1>
+        <p class="page-subtitle">Check out our available products</p>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <%= form_with url: search_path, method: :get, class: "d-flex" do |form| %>
+          <%= form.text_field :q, placeholder: "Search products...", class: "form-control me-2" %>
+          <%= form.submit "Search", class: "btn btn-success" %>
+        <% end %>
+      </div>
+      <div class="col-md-6 text-end">
+        <div class="dropdown">
+          <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Sort by
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
+            <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
+            <li><a class="dropdown-item" href="#">Name A-Z</a></li>
+            <li><a class="dropdown-item" href="#">Newest First</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="row">
+      <% if @products && @products.any? %>
+        <% @products.each do |product| %>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="product-card">
+              <div class="product-image">
+                <%= image_tag "isuzu.jpg", alt: product.name, class: "img-fluid" %>
+              </div>
+              <div class="product-info p-3">
+                <h5 class="product-name"><%= product.name %></h5>
+                <p class="product-description"><%= truncate(product.description, length: 100) %></p>
+                <div class="product-price">
+                  <span class="price">$<%= product.price %></span>
+                </div>
+                <div class="product-actions mt-3">
+                  <%= link_to "View Details", product_path(product), class: "btn btn-outline-success me-2" %>
+                  <%= button_to "Add to Cart", "#", class: "btn btn-success" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- Sample Products (when no products exist) -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="product-card">
+            <div class="product-image">
+              <div class="placeholder-image">📿</div>
+            </div>
+            <div class="product-info p-3">
+              <h5 class="product-name">Ceremonial Grade Matcha</h5>
+              <p class="product-description">Premium ceremonial grade matcha powder perfect for traditional tea ceremonies.</p>
+              <div class="product-price">
+                <span class="price">$45.00</span>
+              </div>
+              <div class="product-actions mt-3">
+                <button class="btn btn-outline-success me-2">View Details</button>
+                <button class="btn btn-success">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="product-card">
+            <div class="product-image">
+              <div class="placeholder-image">🥄</div>
+            </div>
+            <div class="product-info p-3">
+              <h5 class="product-name">Matcha Whisk Set</h5>
+              <p class="product-description">Traditional bamboo whisk (chasen) for creating the perfect matcha froth.</p>
+              <div class="product-price">
+                <span class="price">$25.00</span>
+              </div>
+              <div class="product-actions mt-3">
+                <button class="btn btn-outline-success me-2">View Details</button>
+                <button class="btn btn-success">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="product-card">
+            <div class="product-image">
+              <div class="placeholder-image">🍵</div>
+            </div>
+            <div class="product-info p-3">
+              <h5 class="product-name">Matcha Bowl Set</h5>
+              <p class="product-description">Authentic ceramic matcha bowl (chawan) for the complete matcha experience.</p>
+              <div class="product-price">
+                <span class="price">$35.00</span>
+              </div>
+              <div class="product-actions mt-3">
+                <button class="btn btn-outline-success me-2">View Details</button>
+                <button class="btn btn-success">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
