@@ -1,7 +1,20 @@
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* Font Classes */
 .coustard-regular {
   font-family: "Coustard", serif;
-  font-weight: 400;
+  font-weight: 300;
   font-style: normal;
 }
 
@@ -13,19 +26,23 @@
 
 .homepage-hero {
   background: linear-gradient(135deg, #a8d5a8 0%, #9bc89b 100%);
-  min-height: 100vh;
   color: #2d5016;
   font-family: 'Georgia', serif;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: 'Georgia', serif;
   color: #b1dd93;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .page-title {
-  color: #2d5016;
-  font-weight: bold;
+  color: #2d5016;   
   margin-bottom: 1rem;
   font-family: "Coustard", serif;
   font-weight: 900;
@@ -41,8 +58,26 @@ body {
 
 .navbar {
   background: transparent;
-  padding: 1.5rem 0;
+  padding: 2rem 0;
   border-bottom: none;
+  width: 100%;
+}
+
+.navbar .container-fluid {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  max-width: 100%;
+}
+
+.brand-title-main {
+  margin-bottom: 0;
+}
+
+.brand-title-main .brand-subtitle {
+  font-size: 2.5rem;
+  color: #2d5016;
+  font-weight: 900;
+  font-family: "Coustard", serif;
 }
 
 .logo-script {
@@ -62,7 +97,7 @@ body {
   color: #2d5016 !important;
   font-weight: 400;
   font-size: 1.1rem;
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   transition: color 0.3s ease;
   font-family: "Coustard", serif;
 }
@@ -72,6 +107,7 @@ body {
   color: #1a3009 !important;
   font-weight: 900;
   font-family: "Coustard", serif;
+  text-decoration: none !important;
 }
 
 .cart-count {
@@ -83,14 +119,19 @@ body {
   justify-content: center;
 }
 
-/* Hero Content */
 .hero-content {
   padding: 2rem 0;
+  width: 100%;
+}
+
+.hero-content .container-fluid {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  max-width: 100%;
 }
 
 .hero-title {
   font-size: 3.5rem;
-  font-weight: bold;
   line-height: 1.1;
   color: #2d5016;
   margin-bottom: 2rem;
@@ -120,136 +161,6 @@ body {
   color: #2d5016;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Matcha Character */
-.matcha-character {
-  position: relative;
-  margin: 2rem 0;
-  display: flex;
-  justify-content: center;
-}
-
-.matcha-bowl {
-  position: relative;
-  width: 120px;
-  height: 120px;
-}
-
-.bowl-body {
-  width: 100px;
-  height: 60px;
-  background: #8fbc8f;
-  border-radius: 0 0 50px 50px;
-  border: 4px solid #2d5016;
-  position: absolute;
-  top: 30px;
-  left: 10px;
-}
-
-.matcha-powder {
-  width: 80px;
-  height: 30px;
-  background: #90EE90;
-  border-radius: 50%;
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  z-index: 2;
-}
-
-.whisk {
-  width: 4px;
-  height: 25px;
-  background: #8B4513;
-  position: absolute;
-  top: 20px;
-  left: 58px;
-  z-index: 3;
-}
-
-.whisk::before {
-  content: '';
-  width: 15px;
-  height: 15px;
-  background: #D2691E;
-  border-radius: 50%;
-  position: absolute;
-  top: -5px;
-  left: -5px;
-}
-
-.character-arms {
-  position: absolute;
-  top: 50px;
-}
-
-.arm {
-  width: 30px;
-  height: 8px;
-  background: #2d5016;
-  border-radius: 4px;
-  position: absolute;
-}
-
-.left-arm {
-  left: -20px;
-  transform: rotate(-30deg);
-}
-
-.right-arm {
-  right: -20px;
-  transform: rotate(30deg);
-}
-
-.character-legs {
-  position: absolute;
-  bottom: -20px;
-}
-
-.leg {
-  width: 8px;
-  height: 25px;
-  background: #2d5016;
-  border-radius: 4px;
-  position: absolute;
-}
-
-.left-leg {
-  left: 30px;
-}
-
-.right-leg {
-  right: 30px;
-}
-
-.character-face {
-  position: absolute;
-  top: 45px;
-  left: 35px;
-  z-index: 4;
-}
-
-.eyes {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 5px;
-}
-
-.eye {
-  width: 6px;
-  height: 6px;
-  background: #2d5016;
-  border-radius: 50%;
-}
-
-.mouth {
-  width: 12px;
-  height: 6px;
-  border: 2px solid #2d5016;
-  border-top: none;
-  border-radius: 0 0 12px 12px;
-  margin: 0 auto;
 }
 
 /* Brand Footer */
@@ -427,7 +338,7 @@ body {
 
 
 .btn-success {
-  background-color: #ecedeb;
+  background-color: #2d5016;
   border-color: #2d5016;
   font-weight: 600;
   padding: 0.75rem 2rem;
