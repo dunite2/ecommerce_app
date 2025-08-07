@@ -225,13 +225,13 @@ body {
 .section-title {
   font-size: 3rem;
   color: #2d5016;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .section-subtitle {
   font-size: 1.2rem;
   color: #666;
-  margin-bottom: 3rem;
+  margin-bottom: 8rem;
 }
 
 .product-card {
@@ -276,6 +276,28 @@ body {
   color: #2d5016;
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+.product-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.product-actions .btn {
+  flex: 1;
+  text-align: center;
+}
+
+@media (max-width: 576px) {
+  .product-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .product-actions .btn {
+    width: 100%;
+  }
 }
 
 /* FAQ Page */
@@ -437,4 +459,62 @@ body {
     position: static;
     margin-top: 2rem;
   }
+}
+
+/* Scroll Animation Styles */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.scroll-fade-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.scroll-fade-delay-3 {
+  transition-delay: 0.3s;
+}
+
+/* FAQ specific animations */
+.faq-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-out;
+}
+
+.faq-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq-page .page-title {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.8s ease-out;
+}
+
+.faq-page .page-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq-page .page-subtitle {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.8s ease-out 0.2s;
+}
+
+.faq-page .page-subtitle.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

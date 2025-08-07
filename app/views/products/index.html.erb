@@ -36,11 +36,11 @@
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="product-card">
               <div class="product-image">
-                <%= image_tag "isuzu.jpg", alt: product.name, class: "img-fluid" %>
+                <%= image_tag product.image.present? ? product.image : "isuzu.jpg", alt: product.name, class: "img-fluid" %>
               </div>
               <div class="product-info p-3">
                 <h5 class="product-name"><%= product.name %></h5>
-                <p class="product-description"><%= truncate(product.description, length: 100) %></p>
+                <p class="product-description"><%= truncate(product.descrption, length: 100) %></p>
                 <div class="product-price">
                   <span class="price">$<%= product.price %></span>
                 </div>

@@ -1,103 +1,107 @@
 <div class="faq-page">
   <div class="container mt-4">
-    <!-- Header -->
-    <div class="row mb-5">
-      <div class="col-12 text-center">
-        <h1 class="page-title">Frequently Asked Questions</h1>
-        <p class="page-subtitle">Everything you need to know about Matcha Whiskers</p>
+    <!-- Back to Home Button -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <%= link_to root_path, class: "btn btn-outline-success scroll-fade" do %>
+          <i class="fas fa-arrow-left me-2"></i>Back to Home
+        <% end %>
       </div>
     </div>
 
-    <!-- FAQ Content -->
+    <!-- Header -->
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h1 class="page-title">FAQs</h1>
+        <p class="page-subtitle">Shipping and Restocks</p>
+      </div>
+    </div>
+
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <!-- FAQ Item 1 -->
         <div class="faq-item mb-4">
           <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq1">
-            <h5>What is ceremonial grade matcha? <i class="fas fa-chevron-down"></i></h5>
+            <h5>When do you usually restock? <i class="fas fa-chevron-down"></i></h5>
           </div>
           <div class="collapse" id="faq1">
             <div class="faq-answer">
-              <p>Ceremonial grade matcha is the highest quality matcha powder, made from the youngest tea leaves and ground using traditional stone mills. It has a vibrant green color, smooth texture, and naturally sweet flavor perfect for traditional tea ceremonies.</p>
+              <p>We usually restock every 2 weeks - but this would depend on the shipping and the availability of the matcha.</p>
             </div>
           </div>
         </div>
 
-        <!-- FAQ Item 2 -->
         <div class="faq-item mb-4">
           <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq2">
-            <h5>How do I prepare matcha tea? <i class="fas fa-chevron-down"></i></h5>
+            <h5>How long does shipping take? <i class="fas fa-chevron-down"></i></h5>
           </div>
           <div class="collapse" id="faq2">
             <div class="faq-answer">
-              <p>1. Sift 1-2 teaspoons of matcha powder into a bowl<br>
-                 2. Add 2-3 oz of hot water (175°F/80°C)<br>
-                 3. Whisk vigorously in a "W" or "M" motion until frothy<br>
-                 4. Enjoy immediately for the best taste</p>
+              <p>A week or two</p>
             </div>
           </div>
         </div>
 
-        <!-- FAQ Item 3 -->
         <div class="faq-item mb-4">
           <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq3">
-            <h5>What are the health benefits of matcha? <i class="fas fa-chevron-down"></i></h5>
+            <h5>Do you ship internationally? <i class="fas fa-chevron-down"></i></h5>
           </div>
           <div class="collapse" id="faq3">
             <div class="faq-answer">
-              <p>Matcha is rich in antioxidants, particularly catechins like EGCG. It may help boost metabolism, support heart health, enhance focus and concentration, and provide sustained energy without the jitters often associated with coffee.</p>
+              <p>No. We do not ship internationally. We only ship across Canada for now.</p>
             </div>
           </div>
-        </div>
-
-        <!-- FAQ Item 4 -->
-        <div class="faq-item mb-4">
-          <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq4">
-            <h5>How should I store my matcha? <i class="fas fa-chevron-down"></i></h5>
-          </div>
-          <div class="collapse" id="faq4">
-            <div class="faq-answer">
-              <p>Store matcha in an airtight container in the refrigerator, away from light and moisture. Unopened matcha can last up to 2 years, while opened matcha should be consumed within 3-4 months for optimal freshness and flavor.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 5 -->
-        <div class="faq-item mb-4">
-          <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq5">
-            <h5>Do you offer international shipping? <i class="fas fa-chevron-down"></i></h5>
-          </div>
-          <div class="collapse" id="faq5">
-            <div class="faq-answer">
-              <p>Yes! We ship worldwide. Shipping times and costs vary by location. Free shipping is available for orders over $75 within the continental US. International orders may be subject to customs duties.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 6 -->
-        <div class="faq-item mb-4">
-          <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq6">
-            <h5>What is your return policy? <i class="fas fa-chevron-down"></i></h5>
-          </div>
-          <div class="collapse" id="faq6">
-            <div class="faq-answer">
-              <p>We offer a 30-day money-back guarantee on all unopened products. If you're not completely satisfied with your purchase, contact us within 30 days for a full refund or exchange.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="row mt-5">
-      <div class="col-12 text-center">
-        <div class="contact-section">
-          <h3>Still have questions?</h3>
-          <p>We're here to help! Contact our matcha experts.</p>
-          <a href="mailto:support@matchawhiskers.com" class="btn btn-success me-3">Email Us</a>
-          <%= link_to "← Back to Home", root_path, class: "btn btn-outline-success" %>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to check if element is in viewport
+      function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 100 &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
+
+      // Function to add visible class to elements
+      function animateOnScroll() {
+        const elements = document.querySelectorAll('.scroll-fade, .faq-item, .page-title, .page-subtitle');
+        
+        elements.forEach(element => {
+          if (isInViewport(element)) {
+            element.classList.add('visible');
+          }
+        });
+      }
+
+      // Initial check
+      animateOnScroll();
+
+      // Check on scroll
+      window.addEventListener('scroll', animateOnScroll);
+      
+      // Trigger animation for elements already visible
+      setTimeout(() => {
+        document.querySelector('.page-title')?.classList.add('visible');
+        document.querySelector('.page-subtitle')?.classList.add('visible');
+        document.querySelector('.scroll-fade')?.classList.add('visible');
+      }, 100);
+      
+      // Stagger FAQ items animation
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach((item, index) => {
+        setTimeout(() => {
+          if (isInViewport(item)) {
+            item.classList.add('visible');
+          }
+        }, 200 + (index * 150));
+      });
+    });
+  </script>
 </div>

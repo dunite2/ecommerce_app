@@ -1,0 +1,129 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Admin Dashboard</h1>
+  <span class="text-muted">Welcome to the admin panel</span>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card bg-primary text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4><%= @products_count %></h4>
+            <p class="card-text">Products</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-box fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4><%= @users_count %></h4>
+            <p class="card-text">Users</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-users fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4><%= @orders_count %></h4>
+            <p class="card-text">Orders</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-shopping-cart fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h4>$<%= number_to_currency(Product.sum(:price), unit: '') %></h4>
+            <p class="card-text">Total Value</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-dollar-sign fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Recent Products</h5>
+      </div>
+      <div class="card-body">
+        <% if @recent_products.any? %>
+          <% @recent_products.each do |product| %>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <strong><%= product.name %></strong><br>
+                <small class="text-muted">$<%= product.price %></small>
+              </div>
+              <div>
+                <%= link_to "Edit", edit_admin_product_path(product), class: "btn btn-sm btn-outline-primary" %>
+              </div>
+            </div>
+            <hr>
+          <% end %>
+        <% else %>
+          <p class="text-muted">No products found.</p>
+        <% end %>
+        
+        <div class="text-center mt-3">
+          <%= link_to "View All Products", admin_products_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Quick Actions</h5>
+      </div>
+      <div class="card-body">
+        <div class="d-grid gap-2">
+          <%= link_to new_admin_product_path, class: "btn btn-success" do %>
+            <i class="fas fa-plus me-2"></i>Add New Product
+          <% end %>
+          
+          <%= link_to admin_products_path, class: "btn btn-outline-primary" do %>
+            <i class="fas fa-list me-2"></i>Manage Products
+          <% end %>
+          
+          <%= link_to admin_orders_path, class: "btn btn-outline-info" do %>
+            <i class="fas fa-shopping-cart me-2"></i>View Orders
+          <% end %>
+          
+          <%= link_to admin_users_path, class: "btn btn-outline-warning" do %>
+            <i class="fas fa-users me-2"></i>Manage Users
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
