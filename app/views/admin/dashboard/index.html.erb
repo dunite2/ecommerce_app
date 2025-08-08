@@ -41,6 +41,22 @@
       <div class="card-body">
         <div class="d-flex justify-content-between">
           <div>
+            <h4><%= @pages_count %></h4>
+            <p class="card-text">Pages</p>
+          </div>
+          <div class="align-self-center">
+            <i class="fas fa-file-alt fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
             <h4><%= @orders_count %></h4>
             <p class="card-text">Orders</p>
           </div>
@@ -113,6 +129,10 @@
           
           <%= link_to admin_products_path, class: "btn btn-outline-primary" do %>
             <i class="fas fa-list me-2"></i>Manage Products
+          <% end %>
+          
+          <%= link_to admin_pages_path, class: "btn btn-outline-secondary" do %>
+            <i class="fas fa-file-alt me-2"></i>Manage Pages
           <% end %>
           
           <%= link_to admin_orders_path, class: "btn btn-outline-info" do %>

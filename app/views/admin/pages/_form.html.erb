@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-body">
+    <%= form_with model: [:admin, @page], local: true, class: "row g-3" do |form| %>
+      
+      <% if @page.errors.any? %>
+        <div class="col-12">
+          <div class="alert alert-danger">
+            <h6>Please fix the following errors:</h6>
+            <ul class="mb-0">
+              <% @page.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="col-md-8">
+        <%= form.label :title, class: "form-label" %>
+        <%= form.text_field :title, class: "form-control", placeholder: "Enter page title" %>
+      </div>
+
+      <div class="col-md-4">
+        <%= form.label :slug, "URL Slug", class: "form-label" %>
+        <%= form.text_field :slug, class: "form-control", placeholder: "page-url-slug" %>
+        <small class="form-text text-muted">Leave blank to auto-generate from title</small>
+      </div>
+
+      <div class="col-12">
+        <%= form.label :content, class: "form-label" %>
+        <%= form.text_area :content, rows: 15, class: "form-control", placeholder: "Enter page content (HTML allowed)" %>
+        <small class="form-text text-muted">You can use HTML tags for formatting</small>
+      </div>
+
+      <div class="col-12">
+        <hr>
+        <div class="d-flex gap-2">
+          <%= form.submit (@page.new_record? ? "Create Page" : "Update Page"), 
+              class: "btn btn-success" %>
+          <%= link_to "Cancel", admin_pages_path, class: "btn btn-secondary" %>
+          <% unless @page.new_record? %>
+            <%= link_to "View Page", admin_page_path(@page), class: "btn btn-outline-info" %>
+          <% end %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>

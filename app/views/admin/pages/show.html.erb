@@ -1,0 +1,96 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Page Details</h1>
+  <div>
+    <%= link_to edit_admin_page_path(@page), class: "btn btn-primary me-2" do %>
+      <i class="fas fa-edit me-2"></i>Edit
+    <% end %>
+    <%= link_to admin_pages_path, class: "btn btn-outline-secondary" do %>
+      <i class="fas fa-arrow-left me-2"></i>Back to Pages
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-sm-3"><strong>Title:</strong></div>
+          <div class="col-sm-9"><%= @page.title %></div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-sm-3"><strong>Slug:</strong></div>
+          <div class="col-sm-9"><code><%= @page.slug %></code></div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-sm-3"><strong>Created:</strong></div>
+          <div class="col-sm-9"><%= @page.created_at.strftime("%B %d, %Y at %I:%M %p") %></div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-sm-3"><strong>Last Updated:</strong></div>
+          <div class="col-sm-9"><%= @page.updated_at.strftime("%B %d, %Y at %I:%M %p") %></div>
+        </div>
+        
+        <hr>
+        
+        <div class="row">
+          <div class="col-12">
+            <strong>Content:</strong>
+            <div class="mt-2 p-3 bg-light rounded">
+              <%= simple_format(@page.content) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Actions</h5>
+      </div>
+      <div class="card-body">
+        <div class="d-grid gap-2">
+          <%= link_to edit_admin_page_path(@page), class: "btn btn-primary" do %>
+            <i class="fas fa-edit me-2"></i>Edit Page
+          <% end %>
+          
+          <% if @page.slug == 'faq' %>
+            <%= link_to faq_path, class: "btn btn-outline-info", target: "_blank" do %>
+              <i class="fas fa-external-link-alt me-2"></i>View FAQ Page
+            <% end %>
+          <% elsif @page.slug == 'about' %>
+            <%= link_to about_path, class: "btn btn-outline-info", target: "_blank" do %>
+              <i class="fas fa-external-link-alt me-2"></i>View About Page
+            <% end %>
+          <% elsif @page.slug == 'contact' %>
+            <%= link_to contact_path, class: "btn btn-outline-info", target: "_blank" do %>
+              <i class="fas fa-external-link-alt me-2"></i>View Contact Page
+            <% end %>
+          <% end %>
+          
+          <%= link_to admin_page_path(@page), method: :delete, 
+              class: "btn btn-outline-danger", 
+              data: { confirm: "Are you sure you want to delete this page? This action cannot be undone." } do %>
+            <i class="fas fa-trash me-2"></i>Delete Page
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card mt-3">
+      <div class="card-header">
+        <h6>Content Preview</h6>
+      </div>
+      <div class="card-body">
+        <div class="small">
+          <%= simple_format(truncate(strip_tags(@page.content), length: 200)) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

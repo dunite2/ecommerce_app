@@ -81,6 +81,10 @@
               <i class="fas fa-box me-2"></i>Products
             <% end %>
             
+            <%= link_to admin_pages_path, class: "nav-link #{'active' if request.path.include?('pages')}" do %>
+              <i class="fas fa-file-alt me-2"></i>Pages
+            <% end %>
+            
             <%= link_to admin_orders_path, class: "nav-link #{'active' if request.path.include?('orders')}" do %>
               <i class="fas fa-shopping-cart me-2"></i>Orders
             <% end %>
