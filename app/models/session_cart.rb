@@ -51,6 +51,10 @@ class SessionCart
     end.compact
   end
 
+  def items_hash
+    @items
+  end
+
   def empty?
     @items.empty?
   end

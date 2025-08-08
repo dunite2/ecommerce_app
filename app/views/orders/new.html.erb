@@ -1,0 +1,109 @@
+<!-- Checkout Page -->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="page-title">Checkout</h1>
+      <p class="page-subtitle">Review your order and provide shipping information</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Order Summary -->
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">Order Summary</h5>
+        </div>
+        <div class="card-body">
+          <% @cart_items.each do |item| %>
+            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+              <div class="d-flex align-items-center">
+                <div class="me-3">
+                  <%= image_tag item[:product].image.present? ? item[:product].image : "isuzu.jpg", 
+                        alt: item[:product].name, class: "img-thumbnail", style: "width: 60px; height: 60px; object-fit: cover;" %>
+                </div>
+                <div>
+                  <h6 class="mb-0"><%= item[:product].name %></h6>
+                  <small class="text-muted">Quantity: <%= item[:quantity] %></small>
+                </div>
+              </div>
+              <div class="text-end">
+                <strong>$<%= sprintf("%.2f", item[:subtotal]) %></strong>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Shipping Information Form -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Shipping Information</h5>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @order, local: true do |form| %>
+            <% if @order.errors.any? %>
+              <div class="alert alert-danger">
+                <strong><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</strong>
+                <ul class="mb-0">
+                  <% @order.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :shipping_address, "Shipping Address", class: "form-label" %>
+              <%= form.text_area :shipping_address, class: "form-control", rows: 4, 
+                    placeholder: "Enter your full shipping address including:\nStreet Address\nCity, State, ZIP Code\nCountry" %>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <%= link_to "Back to Cart", cart_path, class: "btn btn-outline-secondary" %>
+              <%= form.submit "Place Order", class: "btn btn-success" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Total -->
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Order Total</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal:</span>
+            <span>$<%= sprintf("%.2f", @total) %></span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Shipping:</span>
+            <span>Free</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Tax:</span>
+            <span>$0.00</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <strong>Total:</strong>
+            <strong>$<%= sprintf("%.2f", @total) %></strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Note -->
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="text-center">
+            <i class="fas fa-shield-alt text-success fa-2x mb-2"></i>
+            <p class="mb-0"><small class="text-muted">Your payment information is secure and encrypted.</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

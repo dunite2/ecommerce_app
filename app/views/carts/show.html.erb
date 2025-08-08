@@ -106,9 +106,15 @@
             </div>
             
             <div class="checkout-actions">
-              <button class="btn btn-success btn-lg w-100 mb-3">
-                <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
-              </button>
+              <% if user_signed_in? %>
+                <%= link_to new_order_path, class: "btn btn-success btn-lg w-100 mb-3" do %>
+                  <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
+                <% end %>
+              <% else %>
+                <%= link_to new_user_session_path, class: "btn btn-success btn-lg w-100 mb-3" do %>
+                  <i class="fas fa-sign-in-alt me-2"></i>Sign In to Checkout
+                <% end %>
+              <% end %>
               <p class="text-muted small text-center">
                 Secure checkout with SSL encryption
               </p>
@@ -227,7 +233,11 @@
             <strong>Total:</strong>
             <strong>$55.07</strong>
           </div>
-          <button class="btn btn-success w-100 mb-2">Proceed to Checkout</button>
+          <% if user_signed_in? %>
+            <%= link_to "Proceed to Checkout", new_order_path, class: "btn btn-success w-100 mb-2" %>
+          <% else %>
+            <%= link_to "Sign In to Checkout", new_user_session_path, class: "btn btn-success w-100 mb-2" %>
+          <% end %>
           <%= link_to "Continue Shopping", products_path, class: "btn btn-outline-success w-100" %>
         </div>
 

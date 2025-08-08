@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     delete 'clear'
   end
   
-  resources :orders, only: [:index, :show, :create]
+  resources :orders, only: [:index, :show, :new, :create]
   
   # Static pages
   get 'faq', to: 'pages#faq'
