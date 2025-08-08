@@ -8,7 +8,7 @@
   <div class="col-md-4">
     <!-- Filter Button -->
     <div class="d-flex justify-content-end gap-2">
-      <%= link_to form_url(params.permit(:q).merge(recently_updated: params[:recently_updated] == 'true' ? nil : 'true')), 
+      <%= link_to url_for(params.permit(:q).merge(recently_updated: params[:recently_updated] == 'true' ? nil : 'true')), 
             class: "btn #{'btn-success' if params[:recently_updated] == 'true'} #{'btn-outline-success' if params[:recently_updated] != 'true'} btn-sm" do %>
         <i class="fas fa-clock me-1"></i>Recently Updated
       <% end %>

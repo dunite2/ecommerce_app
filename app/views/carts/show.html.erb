@@ -51,10 +51,9 @@
                   </div>
                   <div class="col-md-1 text-end">
                     <%= link_to remove_item_cart_path(product_id: cart_item[:product].id), 
-                          method: :delete, 
+                          data: { turbo_method: :delete, confirm: "Remove #{cart_item[:product].name} from cart?" }, 
                           class: "btn btn-outline-danger btn-sm",
-                          title: "Remove item",
-                          data: { confirm: "Remove #{cart_item[:product].name} from cart?" } do %>
+                          title: "Remove item" do %>
                       <i class="fas fa-trash"></i>
                     <% end %>
                   </div>
@@ -66,9 +65,8 @@
             <div class="cart-actions mt-4">
               <%= link_to "← Continue Shopping", products_path, class: "btn btn-outline-secondary me-3" %>
               <%= link_to "Clear Cart", clear_cart_path, 
-                    method: :delete, 
-                    class: "btn btn-outline-danger",
-                    data: { confirm: "Are you sure you want to clear your cart?" } %>
+                    data: { turbo_method: :delete, confirm: "Are you sure you want to clear your cart?" }, 
+                    class: "btn btn-outline-danger" %>
             </div>
           <% else %>
             <!-- Empty Cart -->
