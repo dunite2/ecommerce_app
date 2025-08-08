@@ -1,58 +1,5 @@
 <div class="homepage-hero">
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-
-      <div class="row w-100 mb-4">
-        <div class="col-12 text-center">
-          <div class="brand-title-main">
-            <span class="brand-subtitle coustard-black">Matcha Fusion</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="row w-100">
-        <div class="col-6">
-          <div class="navbar-nav d-flex flex-row justify-content-start">
-            <%= link_to "Home", root_path, class: "nav-link active coustard-regular me-5" %>
-            <%= link_to "Products", products_path, class: "nav-link coustard-regular me-5" %>
-            <%= link_to "FAQ", faq_path, class: "nav-link coustard-regular" %>
-          </div>
-        </div>
-        
-        <div class="col-6">
-          <div class="navbar-nav d-flex flex-row justify-content-end">
-            <%= link_to search_path, class: "nav-link me-4", title: "Search" do %>
-              <i class="fas fa-search"></i>
-            <% end %>
-            <% if user_signed_in? %>
-              <% if current_user.admin? %>
-                <%= link_to admin_root_path, class: "nav-link me-4", title: "Admin Panel" do %>
-                  <i class="fas fa-cog"></i>
-                <% end %>
-              <% end %>
-              <%= link_to orders_path, class: "nav-link me-4", title: "My Orders" do %>
-                <i class="fas fa-receipt"></i>
-              <% end %>
-              <%= link_to edit_user_registration_path, class: "nav-link me-4" do %>
-                <i class="fas fa-user"></i>
-              <% end %>
-              <%= link_to destroy_user_session_path, method: :delete, class: "nav-link me-4" do %>
-                <i class="fas fa-sign-out-alt"></i>
-              <% end %>
-            <% else %>
-              <%= link_to new_user_session_path, class: "nav-link me-4", title: "Login" do %>
-                <i class="fas fa-user"></i>
-              <% end %>
-            <% end %>
-            <%= link_to cart_path, class: "nav-link", title: "Shopping Cart" do %>
-              <i class="fas fa-shopping-bag"></i>
-              <span class="cart-count badge bg-success ms-1"><%= current_cart.total_items %></span>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <%= render 'shared/navigation' %>
 
   <div class="hero-content">
     <div class="container-fluid">
@@ -95,112 +42,15 @@
       </div>
     </div>
 
-    <div class="row mb-4">
-      <div class="col-md-8">
-        <%= form_with url: root_path, method: :get, class: "d-flex" do |form| %>
-          <%= form.text_field :q, placeholder: "Search products...", class: "form-control me-2", value: params[:q] %>
-          <%= form.submit "Search", class: "btn btn-success" %>
-        <% end %>
-      </div>
-      <div class="col-md-4">
-        <!-- Filter Button -->
-        <div class="d-flex justify-content-end gap-2">
-          <%= link_to root_path(params.permit(:q).merge(recently_updated: params[:recently_updated] == 'true' ? nil : 'true')), 
-                class: "btn #{'btn-success' if params[:recently_updated] == 'true'} #{'btn-outline-success' if params[:recently_updated] != 'true'} btn-sm" do %>
-            <i class="fas fa-clock me-1"></i>Recently Updated
-          <% end %>
-          
-          <% if params[:q].present? || params[:recently_updated].present? %>
-            <%= link_to root_path, class: "btn btn-outline-secondary btn-sm" do %>
-              <i class="fas fa-times me-1"></i>Clear Filters
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+    <%= render 'shared/search_and_filter', form_url: root_path %>
 
     <div class="row">
       <% if @products && @products.any? %>
         <% @products.each do |product| %>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="product-card">
-              <div class="product-image">
-                <%= image_tag product.image.present? ? product.image : "isuzu.jpg", alt: product.name, class: "img-fluid" %>
-              </div>
-              <div class="product-info p-3">
-                <h5 class="product-name"><%= product.name %></h5>
-                <p class="product-description"><%= truncate(product.descrption, length: 100) %></p>
-                <div class="product-price">
-                  <span class="price">$<%= product.price %></span>
-                </div>
-                <div class="product-actions mt-3">
-                  <%= link_to "View Details", product_path(product), class: "btn btn-outline-success me-2" %>
-                  <%= button_to "Add to Cart", add_item_cart_path, 
-                        params: { product_id: product.id, quantity: 1 }, 
-                        method: :post, class: "btn btn-success" %>
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render 'shared/product_card', product: product %>
         <% end %>
       <% else %>
-        <!-- Sample Products (when no products exist) -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="product-card">
-            <div class="product-image">
-              <div class="placeholder-image">📿</div>
-            </div>
-            <div class="product-info p-3">
-              <h5 class="product-name">Ceremonial Grade Matcha</h5>
-              <p class="product-description">Premium ceremonial grade matcha powder perfect for traditional tea ceremonies.</p>
-              <div class="product-price">
-                <span class="price">$45.00</span>
-              </div>
-              <div class="product-actions mt-3">
-                <button class="btn btn-outline-success me-2">View Details</button>
-                <button class="btn btn-success">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="product-card">
-            <div class="product-image">
-              <div class="placeholder-image">🥄</div>
-            </div>
-            <div class="product-info p-3">
-              <h5 class="product-name">Matcha Whisk Set</h5>
-              <p class="product-description">Traditional bamboo whisk (chasen) for creating the perfect matcha froth.</p>
-              <div class="product-price">
-                <span class="price">$25.00</span>
-              </div>
-              <div class="product-actions mt-3">
-                <button class="btn btn-outline-success me-2">View Details</button>
-                <button class="btn btn-success">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="product-card">
-            <div class="product-image">
-              <div class="placeholder-image">🍵</div>
-            </div>
-            <div class="product-info p-3">
-              <h5 class="product-name">Matcha Bowl Set</h5>
-              <p class="product-description">Authentic ceramic matcha bowl (chawan) for the complete matcha experience.</p>
-              <div class="product-price">
-                <span class="price">$35.00</span>
-              </div>
-              <div class="product-actions mt-3">
-                <button class="btn btn-outline-success me-2">View Details</button>
-                <button class="btn btn-success">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%= render 'shared/sample_products' %>
       <% end %>
     </div>
   </div>

@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <div class="row w-100 mb-4">
+      <div class="col-12 text-center">
+        <div class="brand-title-main">
+          <span class="brand-subtitle coustard-black">Matcha Fusion</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row w-100">
+      <div class="col-6">
+        <div class="navbar-nav d-flex flex-row justify-content-start">
+          <%= link_to "Home", root_path, class: "nav-link #{'active' if current_page?(root_path)} coustard-regular me-5" %>
+          <%= link_to "Products", products_path, class: "nav-link #{'active' if current_page?(products_path)} coustard-regular me-5" %>
+          <%= link_to "FAQ", faq_path, class: "nav-link #{'active' if current_page?(faq_path)} coustard-regular" %>
+        </div>
+      </div>
+      
+      <div class="col-6">
+        <div class="navbar-nav d-flex flex-row justify-content-end">
+          <%= link_to search_path, class: "nav-link me-4", title: "Search" do %>
+            <i class="fas fa-search"></i>
+          <% end %>
+          
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <%= link_to admin_root_path, class: "nav-link me-4", title: "Admin Panel" do %>
+                <i class="fas fa-cog"></i>
+              <% end %>
+            <% end %>
+            
+            <%= link_to orders_path, class: "nav-link me-4", title: "My Orders" do %>
+              <i class="fas fa-receipt"></i>
+            <% end %>
+            
+            <%= link_to edit_user_registration_path, class: "nav-link me-4" do %>
+              <i class="fas fa-user"></i>
+            <% end %>
+            
+            <%= link_to destroy_user_session_path, method: :delete, class: "nav-link me-4" do %>
+              <i class="fas fa-sign-out-alt"></i>
+            <% end %>
+          <% else %>
+            <%= link_to new_user_session_path, class: "nav-link me-4", title: "Login" do %>
+              <i class="fas fa-user"></i>
+            <% end %>
+          <% end %>
+          
+          <%= link_to cart_path, class: "nav-link", title: "Shopping Cart" do %>
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count badge bg-success ms-1"><%= current_cart.total_items %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

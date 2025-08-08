@@ -1,0 +1,43 @@
+<div class="status-timeline">
+  <div class="status-item <%= 'active' if ['pending', 'processing', 'shipped', 'delivered'].include?(order.status) %>">
+    <i class="fas fa-shopping-cart"></i>
+    <span>Order Placed</span>
+  </div>
+  <div class="status-item <%= 'active' if ['processing', 'shipped', 'delivered'].include?(order.status) %>">
+    <i class="fas fa-cog"></i>
+    <span>Processing</span>
+  </div>
+  <div class="status-item <%= 'active' if ['shipped', 'delivered'].include?(order.status) %>">
+    <i class="fas fa-truck"></i>
+    <span>Shipped</span>
+  </div>
+  <div class="status-item <%= 'active' if order.status == 'delivered' %>">
+    <i class="fas fa-check-circle"></i>
+    <span>Delivered</span>
+  </div>
+</div>
+
+<style>
+.status-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #6c757d;
+}
+
+.status-item.active {
+  color: #198754;
+  font-weight: 500;
+}
+
+.status-item i {
+  width: 20px;
+  text-align: center;
+}
+</style>
