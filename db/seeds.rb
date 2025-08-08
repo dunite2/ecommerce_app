@@ -13,9 +13,12 @@ products = [
     name: "Marukyu Koyamaen Isuzu",
     description: "Isuzu matcha has a refreshing aroma, astringent, mellow umami and slightly bitter flavor.",
     price: 25.00,
+    original_price: 30.00,
     active: true,
     stock_quantity: 50,
-    image: "isuzu.jpg"
+    image: "isuzu.jpg",
+    on_sale: true,
+    is_new: false
   },
   {
     name: "Marukyu Koyamaen Aorashi",
@@ -23,7 +26,9 @@ products = [
     price: 25.00,
     active: true,
     stock_quantity: 30,
-    image: "aorashi.jpg"
+    image: "aorashi.jpg",
+    on_sale: false,
+    is_new: true
   },
   {
     name: "Yamamasa Koyamaen Ogurayama",
@@ -31,15 +36,20 @@ products = [
     price: 20.00,
     active: true,
     stock_quantity: 40,
-    image: "ogurayama.jpg"
+    image: "ogurayama.jpg",
+    on_sale: false,
+    is_new: false
   },
   {
     name: "Yamamasa Koyamaen Samidori",
     description: "Moderately full-bodied usucha tea rich in fresh, fragrant, green flavours with a mix of slightly astringent, creamy notes and a slightly sweet sensation.",
-    price: 20.00,
+    price: 15.00,
+    original_price: 20.00,
     active: true,
     stock_quantity: 35,
-    image: "samidori.jpg"
+    image: "samidori.jpg",
+    on_sale: true,
+    is_new: false
   },
   {
     name: "Ippodo Tea Ummon",
@@ -47,7 +57,9 @@ products = [
     price: 30.00,
     active: true,
     stock_quantity: 25,
-    image: "ummon.jpg"
+    image: "ummon.jpg",
+    on_sale: false,
+    is_new: true
   },
   {
     name: "Ippodo Tea Ikuyo",
@@ -55,7 +67,9 @@ products = [
     price: 30.00,
     active: true,
     stock_quantity: 20,
-    image: "ikuyo.jpg"
+    image: "ikuyo.jpg",
+    on_sale: false,
+    is_new: false
   }
 ]
 
@@ -63,9 +77,12 @@ products.each do |product_attrs|
   Product.find_or_create_by(name: product_attrs[:name]) do |product|
     product.descrption = product_attrs[:description]
     product.price = product_attrs[:price]
+    product.original_price = product_attrs[:original_price]
     product.active = product_attrs[:active]
     product.stock_quantity = product_attrs[:stock_quantity]
     product.image = product_attrs[:image]
+    product.on_sale = product_attrs[:on_sale]
+    product.is_new = product_attrs[:is_new]
   end
 end
 

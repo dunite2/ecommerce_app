@@ -8,23 +8,58 @@
     </div>
 
     <div class="row mb-4">
-      <div class="col-md-6">
-        <%= form_with url: search_path, method: :get, class: "d-flex" do |form| %>
-          <%= form.text_field :q, placeholder: "Search products...", class: "form-control me-2" %>
+      <div class="col-md-4">
+        <%= form_with url: products_path, method: :get, class: "d-flex" do |form| %>
+          <%= form.text_field :q, placeholder: "Search products...", class: "form-control me-2", value: params[:q] %>
           <%= form.submit "Search", class: "btn btn-success" %>
         <% end %>
       </div>
-      <div class="col-md-6 text-end">
-        <div class="dropdown">
-          <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            Sort by
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
-            <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
-            <li><a class="dropdown-item" href="#">Name A-Z</a></li>
-            <li><a class="dropdown-item" href="#">Newest First</a></li>
-          </ul>
+      <div class="col-md-8">
+        <div class="row">
+          <!-- Filter Buttons -->
+          <div class="col-md-7">
+            <div class="d-flex flex-wrap gap-2">
+              <%= link_to products_path(params.permit(:q, :sort).merge(on_sale: params[:on_sale] == 'true' ? nil : 'true')), 
+                    class: "btn #{'btn-success' if params[:on_sale] == 'true'} #{'btn-outline-success' if params[:on_sale] != 'true'} btn-sm" do %>
+                <i class="fas fa-tag me-1"></i>On Sale
+              <% end %>
+              
+              <%= link_to products_path(params.permit(:q, :sort).merge(is_new: params[:is_new] == 'true' ? nil : 'true')), 
+                    class: "btn #{'btn-success' if params[:is_new] == 'true'} #{'btn-outline-success' if params[:is_new] != 'true'} btn-sm" do %>
+                <i class="fas fa-star me-1"></i>New
+              <% end %>
+              
+              <%= link_to products_path(params.permit(:q, :sort).merge(recently_updated: params[:recently_updated] == 'true' ? nil : 'true')), 
+                    class: "btn #{'btn-success' if params[:recently_updated] == 'true'} #{'btn-outline-success' if params[:recently_updated] != 'true'} btn-sm" do %>
+                <i class="fas fa-clock me-1"></i>Recently Updated
+              <% end %>
+              
+              <% if params[:q].present? || params[:on_sale].present? || params[:is_new].present? || params[:recently_updated].present? %>
+                <%= link_to products_path, class: "btn btn-outline-secondary btn-sm" do %>
+                  <i class="fas fa-times me-1"></i>Clear Filters
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          
+          <!-- Sort Dropdown -->
+          <div class="col-md-5 text-end">
+            <%= form_with url: products_path, method: :get, local: true, class: "d-inline" do |form| %>
+              <%= form.hidden_field :q, value: params[:q] %>
+              <%= form.hidden_field :on_sale, value: params[:on_sale] %>
+              <%= form.hidden_field :is_new, value: params[:is_new] %>
+              <%= form.hidden_field :recently_updated, value: params[:recently_updated] %>
+              <%= form.select :sort, 
+                    options_for_select([
+                      ['Newest First', 'newest'],
+                      ['Price: Low to High', 'price_asc'],
+                      ['Price: High to Low', 'price_desc'],
+                      ['Name A-Z', 'name_asc']
+                    ], params[:sort]),
+                    { prompt: "Sort by" },
+                    { class: "form-select", onchange: "this.form.submit();" } %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
