@@ -93,31 +93,21 @@
     </div>
 
     <div class="row mb-4">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <%= form_with url: root_path, method: :get, class: "d-flex" do |form| %>
           <%= form.text_field :q, placeholder: "Search products...", class: "form-control me-2", value: params[:q] %>
           <%= form.submit "Search", class: "btn btn-success" %>
         <% end %>
       </div>
-      <div class="col-md-6">
-        <!-- Filter Buttons -->
-        <div class="d-flex flex-wrap gap-2 justify-content-end">
-          <%= link_to root_path(params.permit(:q).merge(on_sale: params[:on_sale] == 'true' ? nil : 'true')), 
-                class: "btn #{'btn-success' if params[:on_sale] == 'true'} #{'btn-outline-success' if params[:on_sale] != 'true'} btn-sm" do %>
-            <i class="fas fa-tag me-1"></i>On Sale
-          <% end %>
-          
-          <%= link_to root_path(params.permit(:q).merge(is_new: params[:is_new] == 'true' ? nil : 'true')), 
-                class: "btn #{'btn-success' if params[:is_new] == 'true'} #{'btn-outline-success' if params[:is_new] != 'true'} btn-sm" do %>
-            <i class="fas fa-star me-1"></i>New
-          <% end %>
-          
+      <div class="col-md-4">
+        <!-- Filter Button -->
+        <div class="d-flex justify-content-end gap-2">
           <%= link_to root_path(params.permit(:q).merge(recently_updated: params[:recently_updated] == 'true' ? nil : 'true')), 
                 class: "btn #{'btn-success' if params[:recently_updated] == 'true'} #{'btn-outline-success' if params[:recently_updated] != 'true'} btn-sm" do %>
             <i class="fas fa-clock me-1"></i>Recently Updated
           <% end %>
           
-          <% if params[:q].present? || params[:on_sale].present? || params[:is_new].present? || params[:recently_updated].present? %>
+          <% if params[:q].present? || params[:recently_updated].present? %>
             <%= link_to root_path, class: "btn btn-outline-secondary btn-sm" do %>
               <i class="fas fa-times me-1"></i>Clear Filters
             <% end %>
@@ -130,24 +120,7 @@
       <% if @products && @products.any? %>
         <% @products.each do |product| %>
           <div class="col-lg-4 col-md-6 mb-4">
-            <div class="product-card position-relative">
-              <!-- Product Badges -->
-              <div class="position-absolute top-0 start-0 p-2" style="z-index: 2;">
-                <% if product.on_sale? %>
-                  <span class="badge bg-danger me-1">
-                    <i class="fas fa-tag"></i> Sale
-                    <% if product.discount_percentage > 0 %>
-                      -<%= product.discount_percentage %>%
-                    <% end %>
-                  </span>
-                <% end %>
-                <% if product.is_new? %>
-                  <span class="badge bg-primary">
-                    <i class="fas fa-star"></i> New
-                  </span>
-                <% end %>
-              </div>
-              
+            <div class="product-card">
               <div class="product-image">
                 <%= image_tag product.image.present? ? product.image : "isuzu.jpg", alt: product.name, class: "img-fluid" %>
               </div>
@@ -155,12 +128,7 @@
                 <h5 class="product-name"><%= product.name %></h5>
                 <p class="product-description"><%= truncate(product.descrption, length: 100) %></p>
                 <div class="product-price">
-                  <% if product.on_sale? && product.original_price.present? %>
-                    <span class="price text-success fw-bold">$<%= product.price %></span>
-                    <span class="text-decoration-line-through text-muted ms-2">$<%= product.original_price %></span>
-                  <% else %>
-                    <span class="price">$<%= product.price %></span>
-                  <% end %>
+                  <span class="price">$<%= product.price %></span>
                 </div>
                 <div class="product-actions mt-3">
                   <%= link_to "View Details", product_path(product), class: "btn btn-outline-success me-2" %>

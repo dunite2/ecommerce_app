@@ -4,8 +4,6 @@ class ProductsController < ApplicationController
     
     # Apply filters
     @products = @products.where("name ILIKE ?", "%#{params[:q]}%") if params[:q].present?
-    @products = @products.on_sale if params[:on_sale] == 'true'
-    @products = @products.new_products if params[:is_new] == 'true'
     @products = @products.recently_updated if params[:recently_updated] == 'true'
     
     # Apply sorting
