@@ -1,12 +1,13 @@
 <div class="products-page">
   <div class="container mt-4">
-        <div class="row mb-4">
+    <div class="row mb-4">
       <div class="col-12">
         <h1 class="page-title">Currently Available</h1>
         <p class="page-subtitle">Check out our available products</p>
       </div>
     </div>
 
+    <!-- Search and Filter Section -->
     <div class="row mb-4">
       <div class="col-md-4">
         <%= form_with url: products_path, method: :get, class: "d-flex" do |form| %>
@@ -56,84 +57,10 @@
     <div class="row">
       <% if @products && @products.any? %>
         <% @products.each do |product| %>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="product-card">
-              <div class="product-image">
-                <%= image_tag product.image.present? ? product.image : "isuzu.jpg", alt: product.name, class: "img-fluid" %>
-              </div>
-              <div class="product-info p-3">
-                <h5 class="product-name"><%= product.name %></h5>
-                <p class="product-description"><%= truncate(product.descrption, length: 100) %></p>
-                <div class="product-price">
-                  <span class="price">$<%= product.price %></span>
-                </div>
-                <div class="product-actions mt-3">
-                  <%= link_to "View Details", product_path(product), class: "btn btn-outline-success me-2" %>
-                  <%= button_to "Add to Cart", add_item_cart_path, 
-                        params: { product_id: product.id, quantity: 1 }, 
-                        method: :post, class: "btn btn-success" %>
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render 'shared/product_card', product: product %>
         <% end %>
       <% else %>
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="product-card">
-            <div class="product-image">
-              <div class="placeholder-image">📿</div>
-            </div>
-            <div class="product-info p-3">
-              <h5 class="product-name">Ceremonial Grade Matcha</h5>
-              <p class="product-description">Premium ceremonial grade matcha powder perfect for traditional tea ceremonies.</p>
-              <div class="product-price">
-                <span class="price">$45.00</span>
-              </div>
-              <div class="product-actions mt-3">
-                <button class="btn btn-outline-success me-2">View Details</button>
-                <button class="btn btn-success">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="product-card">
-            <div class="product-image">
-              <div class="placeholder-image">🥄</div>
-            </div>
-            <div class="product-info p-3">
-              <h5 class="product-name">Marukyu Koyamaen Isuzu</h5>
-              <p class="product-description">Isuzu matcha has a refreshing aroma, astringent, mellow umami and slightly bitter flavor.</p>
-              <div class="product-price">
-                <span class="price">$25.00</span>
-              </div>
-              <div class="product-actions mt-3">
-                <button class="btn btn-outline-success me-2">View Details</button>
-                <button class="btn btn-success">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="product-card">
-            <div class="product-image">
-              <div class="placeholder-image">🍵</div>
-            </div>
-            <div class="product-info p-3">
-              <h5 class="product-name">Matcha Bowl Set</h5>
-              <p class="product-description">Authentic ceramic matcha bowl (chawan) for the complete matcha experience.</p>
-              <div class="product-price">
-                <span class="price">$35.00</span>
-              </div>
-              <div class="product-actions mt-3">
-                <button class="btn btn-outline-success me-2">View Details</button>
-                <button class="btn btn-success">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%= render 'shared/sample_products' %>
       <% end %>
     </div>
 

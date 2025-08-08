@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-between align-items-center py-3 <%= 'border-bottom' unless local_assigns[:no_border] %>">
+  <div class="d-flex align-items-center">
+    <div class="me-3">
+      <%= image_tag order_item.product.image.present? ? order_item.product.image : "isuzu.jpg", 
+            alt: order_item.product.name, class: "img-thumbnail", style: "width: 80px; height: 80px; object-fit: cover;" %>
+    </div>
+    <div>
+      <h6 class="mb-1"><%= order_item.product.name %></h6>
+      <p class="text-muted mb-1"><%= truncate(order_item.product.descrption, length: 80) %></p>
+      <small class="text-muted">Quantity: <%= order_item.quality %> × $<%= sprintf("%.2f", order_item.price) %></small>
+    </div>
+  </div>
+  <div class="text-end">
+    <strong>$<%= sprintf("%.2f", order_item.total_price) %></strong>
+    <br>
+    <small class="text-muted">
+      <%= link_to "View Product", product_path(order_item.product), class: "text-decoration-none" %>
+    </small>
+  </div>
+</div>
