@@ -2,8 +2,16 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     
-    # Apply filters
-    @products = @products.where("name ILIKE ?", "%#{params[:q]}%") if params[:q].present?
+    # Apply keyword search (enhanced to include category-like terms)
+    if params[:q].present?
+      search_term = params[:q].downcase
+      @products = @products.where(
+        "LOWER(name) LIKE ? OR LOWER(descrption) LIKE ? OR LOWER(name) LIKE ? OR LOWER(descrption) LIKE ?", 
+        "%#{search_term}%", "%#{search_term}%",
+        "%#{categorize_search_term(search_term)}%", "%#{categorize_search_term(search_term)}%"
+      )
+    end
+    
     @products = @products.recently_updated if params[:recently_updated] == 'true'
     
     # Apply sorting
@@ -29,9 +37,34 @@ class ProductsController < ApplicationController
     @products = Product.all
     
     if params[:q].present?
-      @products = @products.where("name ILIKE ? OR descrption ILIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
+      search_term = params[:q].downcase
+      @products = @products.where(
+        "LOWER(name) LIKE ? OR LOWER(descrption) LIKE ? OR LOWER(name) LIKE ? OR LOWER(descrption) LIKE ?", 
+        "%#{search_term}%", "%#{search_term}%",
+        "%#{categorize_search_term(search_term)}%", "%#{categorize_search_term(search_term)}%"
+      )
     end
     
     render :index
+  end
+
+  private
+
+  def categorize_search_term(term)
+    # Map category-like search terms to product keywords
+    category_mapping = {
+      'powder' => 'matcha',
+      'tea' => 'matcha',
+      'ceremonial' => 'ceremonial grade',
+      'premium' => 'ceremonial',
+      'tools' => 'whisk bowl',
+      'accessories' => 'whisk bowl chasen chawan',
+      'traditional' => 'ceremonial grade',
+      'japanese' => 'matcha',
+      'organic' => 'matcha',
+      'green' => 'matcha'
+    }
+    
+    category_mapping[term] || term
   end
 end

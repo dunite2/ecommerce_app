@@ -43,7 +43,7 @@
             <% end %>
             <%= link_to cart_path, class: "nav-link", title: "Shopping Cart" do %>
               <i class="fas fa-shopping-bag"></i>
-              <span class="cart-count badge bg-success ms-1">0</span>
+              <span class="cart-count badge bg-success ms-1"><%= current_cart.total_items %></span>
             <% end %>
           </div>
         </div>
@@ -132,7 +132,9 @@
                 </div>
                 <div class="product-actions mt-3">
                   <%= link_to "View Details", product_path(product), class: "btn btn-outline-success me-2" %>
-                  <%= button_to "Add to Cart", "#", class: "btn btn-success" %>
+                  <%= button_to "Add to Cart", add_item_cart_path, 
+                        params: { product_id: product.id, quantity: 1 }, 
+                        method: :post, class: "btn btn-success" %>
                 </div>
               </div>
             </div>

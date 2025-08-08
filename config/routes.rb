@@ -6,7 +6,15 @@ Rails.application.routes.draw do
   # Public routes
   resources :categories, only: [:index, :show]
   resources :products, only: [:index, :show]
-  resource :cart, only: [:show, :update]
+  
+  # Cart routes
+  resource :cart, only: [:show] do
+    post 'add_item'
+    patch 'update_item'
+    delete 'remove_item'
+    delete 'clear'
+  end
+  
   resources :orders, only: [:index, :show, :create]
   
   # Static pages

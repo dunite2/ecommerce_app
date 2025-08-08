@@ -13,11 +13,165 @@
       <div class="col-lg-8">
         <!-- Cart Items -->
         <div class="cart-items">
-          <!-- Sample Cart Item -->
-          <div class="cart-item mb-3 p-3 border rounded">
-            <div class="row align-items-center">
-              <div class="col-md-2">
-                <div class="product-thumbnail">
+          <% if @cart_items.any? %>
+            <% @cart_items.each do |cart_item| %>
+              <div class="cart-item mb-3 p-3 border rounded">
+                <div class="row align-items-center">
+                  <div class="col-md-2">
+                    <div class="product-thumbnail">
+                      <%= image_tag cart_item[:product].image.present? ? cart_item[:product].image : "isuzu.jpg", 
+                            alt: cart_item[:product].name, class: "img-fluid rounded" %>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <h6 class="product-name mb-1"><%= cart_item[:product].name %></h6>
+                    <p class="text-muted small mb-0"><%= truncate(cart_item[:product].descrption, length: 80) %></p>
+                    <div class="price mt-1">
+                      <span class="text-success fw-bold">$<%= cart_item[:product].price %></span>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <%= form_with url: update_item_cart_path, method: :patch, local: true, class: "quantity-form" do |form| %>
+                      <%= form.hidden_field :product_id, value: cart_item[:product].id %>
+                      <div class="input-group">
+                        <%= form.number_field :quantity, 
+                              value: cart_item[:quantity], 
+                              min: 1, 
+                              max: cart_item[:product].stock_quantity,
+                              class: "form-control form-control-sm",
+                              onchange: "this.form.submit();" %>
+                        <span class="input-group-text">qty</span>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <div class="subtotal fw-bold">
+                      $<%= '%.2f' % cart_item[:subtotal] %>
+                    </div>
+                  </div>
+                  <div class="col-md-1 text-end">
+                    <%= link_to remove_item_cart_path(product_id: cart_item[:product].id), 
+                          method: :delete, 
+                          class: "btn btn-outline-danger btn-sm",
+                          title: "Remove item",
+                          data: { confirm: "Remove #{cart_item[:product].name} from cart?" } do %>
+                      <i class="fas fa-trash"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            
+            <!-- Cart Actions -->
+            <div class="cart-actions mt-4">
+              <%= link_to "← Continue Shopping", products_path, class: "btn btn-outline-secondary me-3" %>
+              <%= link_to "Clear Cart", clear_cart_path, 
+                    method: :delete, 
+                    class: "btn btn-outline-danger",
+                    data: { confirm: "Are you sure you want to clear your cart?" } %>
+            </div>
+          <% else %>
+            <!-- Empty Cart -->
+            <div class="empty-cart text-center py-5">
+              <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
+              <h4>Your cart is empty</h4>
+              <p class="text-muted">Add some delicious matcha products to get started!</p>
+              <%= link_to "Shop Now", products_path, class: "btn btn-success btn-lg mt-3" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="col-lg-4">
+        <% if @cart_items.any? %>
+          <div class="cart-summary p-4 border rounded">
+            <h5 class="mb-4">Order Summary</h5>
+            
+            <div class="summary-row d-flex justify-content-between mb-2">
+              <span>Items (<%= current_cart.total_items %>):</span>
+              <span>$<%= '%.2f' % current_cart.total_price %></span>
+            </div>
+            
+            <div class="summary-row d-flex justify-content-between mb-2">
+              <span>Shipping:</span>
+              <span class="text-success">Free</span>
+            </div>
+            
+            <hr>
+            
+            <div class="summary-total d-flex justify-content-between mb-4">
+              <strong>Total:</strong>
+              <strong class="text-success h5">$<%= '%.2f' % current_cart.total_price %></strong>
+            </div>
+            
+            <div class="checkout-actions">
+              <button class="btn btn-success btn-lg w-100 mb-3">
+                <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
+              </button>
+              <p class="text-muted small text-center">
+                Secure checkout with SSL encryption
+              </p>
+            </div>
+          </div>
+          
+          <!-- Promo Code -->
+          <div class="promo-code mt-4 p-4 border rounded">
+            <h6>Have a promo code?</h6>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Enter code">
+              <button class="btn btn-outline-secondary">Apply</button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.cart-page .product-thumbnail img {
+  max-height: 80px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.cart-page .cart-item {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.cart-page .cart-item:hover {
+  background-color: #e9ecef;
+}
+
+.cart-page .quantity-form input {
+  text-align: center;
+}
+
+.cart-page .cart-summary {
+  background-color: #f8f9fa;
+  position: sticky;
+  top: 20px;
+}
+
+.cart-page .summary-row {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.5rem;
+}
+
+.cart-page .summary-total {
+  font-size: 1.1rem;
+}
+
+.cart-page .empty-cart {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
                   <div class="placeholder-image">📿</div>
                 </div>
               </div>

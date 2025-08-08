@@ -1,0 +1,193 @@
+<div class="product-detail-page">
+  <div class="container mt-4">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Products", products_path %></li>
+        <li class="breadcrumb-item active" aria-current="page"><%= @product.name %></li>
+      </ol>
+    </nav>
+
+    <div class="row">
+      <!-- Product Image -->
+      <div class="col-lg-6 mb-4">
+        <div class="product-image-large">
+          <%= image_tag @product.image.present? ? @product.image : "isuzu.jpg", 
+                alt: @product.name, 
+                class: "img-fluid rounded shadow" %>
+        </div>
+      </div>
+
+      <!-- Product Information -->
+      <div class="col-lg-6">
+        <div class="product-details">
+          <h1 class="product-title mb-3"><%= @product.name %></h1>
+          
+          <!-- Price -->
+          <div class="product-price mb-4">
+            <span class="price h3 text-success">$<%= @product.price %></span>
+          </div>
+
+          <!-- Description -->
+          <div class="product-description mb-4">
+            <h5>Description</h5>
+            <p class="text-muted"><%= simple_format(@product.descrption) %></p>
+          </div>
+
+          <!-- Stock Information -->
+          <div class="stock-info mb-4">
+            <% if @product.stock_quantity && @product.stock_quantity > 0 %>
+              <span class="badge bg-success">
+                <i class="fas fa-check"></i> In Stock (<%= @product.stock_quantity %> available)
+              </span>
+            <% else %>
+              <span class="badge bg-danger">
+                <i class="fas fa-times"></i> Out of Stock
+              </span>
+            <% end %>
+          </div>
+
+          <!-- Add to Cart Section -->
+          <div class="add-to-cart-section mb-4">
+            <div class="row">
+              <div class="col-md-4 mb-2">
+                <label for="quantity" class="form-label">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" value="1" min="1" 
+                       max="<%= @product.stock_quantity || 1 %>">
+              </div>
+            </div>
+            
+            <div class="action-buttons mt-3">
+              <% if @product.stock_quantity && @product.stock_quantity > 0 %>
+                <%= form_with url: add_item_cart_path, method: :post, local: true, class: "d-inline-block me-3" do |form| %>
+                  <%= form.hidden_field :product_id, value: @product.id %>
+                  <%= form.hidden_field :quantity, value: 1, id: "cart_quantity" %>
+                  <%= form.submit "Add to Cart", class: "btn btn-success btn-lg" %>
+                <% end %>
+                <%= button_to "Buy Now", "#", 
+                      class: "btn btn-outline-success btn-lg" %>
+              <% else %>
+                <button class="btn btn-secondary btn-lg" disabled>
+                  <i class="fas fa-times"></i> Out of Stock
+                </button>
+              <% end %>
+            </div>
+
+            <script>
+              // Update hidden quantity field when user changes quantity
+              document.getElementById('quantity').addEventListener('change', function() {
+                document.getElementById('cart_quantity').value = this.value;
+              });
+            </script>
+          </div>
+
+          <!-- Product Details -->
+          <div class="product-specs">
+            <h5>Product Details</h5>
+            <table class="table table-borderless">
+              <tr>
+                <td class="text-muted">Product ID:</td>
+                <td>#<%= @product.id %></td>
+              </tr>
+              <tr>
+                <td class="text-muted">Stock:</td>
+                <td><%= @product.stock_quantity || "N/A" %> units</td>
+              </tr>
+              <tr>
+                <td class="text-muted">Status:</td>
+                <td>
+                  <% if @product.active %>
+                    <span class="badge bg-success">Active</span>
+                  <% else %>
+                    <span class="badge bg-secondary">Inactive</span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-muted">Added:</td>
+                <td><%= @product.created_at.strftime("%B %d, %Y") %></td>
+              </tr>
+              <% if @product.updated_at != @product.created_at %>
+                <tr>
+                  <td class="text-muted">Last Updated:</td>
+                  <td><%= @product.updated_at.strftime("%B %d, %Y") %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products Section -->
+    <div class="related-products mt-5">
+      <h3 class="mb-4">You might also like</h3>
+      <div class="row">
+        <% Product.where.not(id: @product.id).limit(3).each do |related_product| %>
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="product-card">
+              <div class="product-image">
+                <%= image_tag related_product.image.present? ? related_product.image : "isuzu.jpg", 
+                      alt: related_product.name, class: "img-fluid" %>
+              </div>
+              <div class="product-info p-3">
+                <h6 class="product-name"><%= related_product.name %></h6>
+                <p class="product-description small"><%= truncate(related_product.descrption, length: 80) %></p>
+                <div class="product-price">
+                  <span class="price">$<%= related_product.price %></span>
+                </div>
+                <div class="product-actions mt-2">
+                  <%= link_to "View Details", product_path(related_product), class: "btn btn-outline-success btn-sm" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <%= link_to "← Back to Products", products_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.product-detail-page .product-image-large img {
+  max-height: 500px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.product-detail-page .product-title {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.product-detail-page .price {
+  font-weight: bold;
+}
+
+.product-detail-page .product-specs table td {
+  padding: 0.5rem 0;
+}
+
+.product-detail-page .action-buttons .btn {
+  min-width: 150px;
+}
+
+.product-detail-page .related-products .product-card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.product-detail-page .related-products .product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+</style>
